@@ -416,10 +416,8 @@
 
 </div> <!-- /container -->
 
-<!-- ===== Audio (Base64 encoded silent beep, ~1KB) ===== -->
-<audio id="bgm" loop preload="none">
-  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav">
-</audio>
+<!-- ===== Audio: 人间共鸣 - 李健 (via NetEase Cloud Music iframe) ===== -->
+<iframe id="bgmPlayer" src="https://music.163.com/outchain/player?type=2&id=3349259994&auto=0&height=66" style="display:none;" allow="autoplay"></iframe>
 
 <script>
 (function() {
@@ -430,48 +428,30 @@
 
   // ===== Click-to-edit name hint =====
   const nameEl = document.getElementById('editableName');
-  // Stop propagation so clicking doesn't trigger anything else
   nameEl.addEventListener('click', function(e) { e.stopPropagation(); });
 
-  // ===== Music toggle (play/pause background audio) =====
-  const audio = document.getElementById('bgm');
+  // ===== Music toggle using NetEase Cloud Music =====
   const musicBtn = document.getElementById('musicBtn');
+  const bgmFrame = document.getElementById('bgmPlayer');
   let isPlaying = false;
 
   window.toggleMusic = function() {
     if (isPlaying) {
-      audio.pause();
+      // Reload frame without "auto=1" to stop
+      bgmFrame.src = 'https://music.163.com/outchain/player?type=2&id=3349259994&auto=0&height=66';
       musicBtn.classList.remove('playing');
       musicBtn.textContent = '🎵';
     } else {
-      audio.play().then(() => {
-        musicBtn.classList.add('playing');
-        musicBtn.textContent = '🎶';
-      }).catch(function(e) {
-        // Auto-play blocked on first tap — iOS/WeChat requires user gesture
-        console.log('Audio play blocked until user interaction');
-      });
+      // Reload frame with "auto=1" to start
+      bgmFrame.src = 'https://music.163.com/outchain/player?type=2&id=3349259994&auto=1&height=66';
+      musicBtn.classList.add('playing');
+      musicBtn.textContent = '🎶';
     }
     isPlaying = !isPlaying;
   };
 
-  // ===== If user taps anywhere, try to enable audio context (WeChat friendly) =====
-  document.addEventListener('touchstart', function() {
-    if (audio.context) return;
-    // Create AudioContext on first touch for WeChat
-    try {
-      var ctx = new (window.AudioContext || window.webkitAudioContext)();
-      audio.context = true;
-    } catch(e) {}
-  }, { once: true });
-
-  // ===== Optional: If WeChat browser, auto-enable audio after user interaction =====
-  var isWechat = navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
-  if (isWechat) {
-    document.addEventListener('WeixinJSBridgeReady', function() {
-      audio.load();
-    }, { once: true });
-  }
+  // ===== WeChat friendly: enable on user first touch =====
+  document.addEventListener('touchstart', function() {}, { once: true });
 })();
 </script>
 </body>
