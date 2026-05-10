@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>母亲节快乐</title>
+<style>
+  /* ========== Reset & Base ========== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #f06292 100%);
+  }
+
+  /* ========== Container ========== */
+  .container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 60px;
+    overflow: hidden;
+  }
+
+  /* ========== Floating Petals (CSS only) ========== */
+  .petal {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(ellipse at 30% 30%, #ffcdd2, #ef9a9a);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    animation: petalFall linear infinite;
+  }
+  .petal:nth-child(1)  { left: 5%;  animation-duration: 6s; animation-delay: 0s;   width: 14px; height: 16px; }
+  .petal:nth-child(2)  { left: 15%; animation-duration: 8s; animation-delay: 1s;   width: 18px; height: 20px; }
+  .petal:nth-child(3)  { left: 25%; animation-duration: 7s; animation-delay: 2s;   width: 12px; height: 14px; }
+  .petal:nth-child(4)  { left: 35%; animation-duration: 9s; animation-delay: 0.5s; width: 16px; height: 18px; }
+  .petal:nth-child(5)  { left: 45%; animation-duration: 6.5s;animation-delay: 3s;  width: 14px; height: 16px; }
+  .petal:nth-child(6)  { left: 55%; animation-duration: 8.5s;animation-delay: 1.5s; width: 20px; height: 22px; }
+  .petal:nth-child(7)  { left: 65%; animation-duration: 7.5s;animation-delay: 2.5s; width: 13px; height: 15px; }
+  .petal:nth-child(8)  { left: 75%; animation-duration: 9.5s;animation-delay: 0s;   width: 17px; height: 19px; }
+  .petal:nth-child(9)  { left: 85%; animation-duration: 6.8s;animation-delay: 3.5s; width: 15px; height: 17px; }
+  .petal:nth-child(10) { left: 92%; animation-duration: 8.2s;animation-delay: 1.2s; width: 12px; height: 14px; }
+  .petal:nth-child(11) { left: 10%; animation-duration: 7.3s;animation-delay: 4s;   width: 19px; height: 21px; }
+  .petal:nth-child(12) { left: 50%; animation-duration: 9.1s;animation-delay: 0.8s; width: 16px; height: 18px; }
+  .petal:nth-child(13) { left: 70%; animation-duration: 6.2s;animation-delay: 5s;   width: 14px; height: 16px; }
+  .petal:nth-child(14) { left: 30%; animation-duration: 8.8s;animation-delay: 2.2s; width: 18px; height: 20px; }
+  .petal:nth-child(15) { left: 80%; animation-duration: 7.9s;animation-delay: 3.8s; width: 15px; height: 17px; }
+
+  @keyframes petalFall {
+    0%   { transform: translateY(-60px) rotate(0deg) scale(0.8); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(100vh) rotate(360deg) scale(0.4); opacity: 0; }
+  }
+
+  /* ========== Content Card ========== */
+  .card {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 380px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 32px;
+    padding: 36px 28px 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(233,30,99,0.08);
+    animation: cardAppear 1.2s ease-out forwards;
+    opacity: 0;
+  }
+  @keyframes cardAppear {
+    0%   { transform: translateY(40px) scale(0.95); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+
+  /* ========== Header Emoji / Icon ========== */
+  .icon-area {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .icon-area .heart-icon {
+    font-size: 64px;
+    line-height: 1;
+    display: inline-block;
+    animation: heartBeat 1.5s ease-in-out infinite;
+  }
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    15%      { transform: scale(1.2); }
+    30%      { transform: scale(1); }
+    45%      { transform: scale(1.15); }
+    60%      { transform: scale(1); }
+  }
+
+  /* ========== Flower SVG ========== */
+  .flower-svg-wrap {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .flower-svg-wrap svg {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 4px 12px rgba(233,30,99,0.2));
+  }
+
+  /* ========== Title ========== */
+  .title {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #e91e63, #ad1457);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    line-height: 1.3;
+  }
+  .title .sub {
+    display: block;
+    font-size: 16px;
+    color: #c2185b;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* ========== Decorative Line ========== */
+  .divider {
+    width: 80px;
+    height: 3px;
+    margin: 0 auto 20px;
+    background: linear-gradient(90deg, transparent, #e91e63, transparent);
+    border-radius: 2px;
+  }
+
+  /* ========== Message ========== */
+  .message {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .message p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #4a4a4a;
+    letter-spacing: 1px;
+  }
+  .message .highlight {
+    color: #c2185b;
+    font-weight: 600;
+  }
+
+  /* ========== Customizable Greeting (editable) ========== */
+  .greeting-box {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    border-radius: 20px;
+    padding: 24px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .greeting-box::before {
+    content: '💐';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 40px;
+    opacity: 0.3;
+    transform: rotate(15deg);
+  }
+  .greeting-box::after {
+    content: '🌷';
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    font-size: 36px;
+    opacity: 0.3;
+    transform: rotate(-15deg);
+  }
+  .greeting-box .label {
+    font-size: 13px;
+    color: #ad1457;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .greeting-box .greeting-text {
+    font-size: 20px;
+    color: #880e4f;
+    font-weight: 600;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+  .greeting-box .greeting-text .editable-name {
+    display: inline-block;
+    border-bottom: 2px dashed #e91e63;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0 4px;
+  }
+  .greeting-box .greeting-text .editable-name:focus {
+    outline: none;
+    border-bottom-color: #ad1457;
+    background: rgba(233,30,99,0.08);
+    border-radius: 4px;
+  }
+
+  /* ========== Signature ========== */
+  .signature {
+    text-align: right;
+    margin-top: 4px;
+  }
+  .signature p {
+    font-size: 16px;
+    color: #ad1457;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  .signature .date {
+    font-size: 13px;
+    color: #999;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  /* ========== Footer ========== */
+  .footer-note {
+    text-align: center;
+    margin-top: 20px;
+    padding: 8px;
+    position: relative;
+    z-index: 10;
+  }
+  .footer-note p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+  }
+
+  /* ========== Bottom Sparkles ========== */
+  .sparkle {
+    position: fixed;
+    bottom: 20px;
+    z-index: 2;
+    font-size: 18px;
+    animation: floatUp 3s ease-in-out infinite;
+    opacity: 0.6;
+  }
+  .sparkle:nth-child(42) { left: 8%;  animation-duration: 3.2s; animation-delay: 0s;   font-size: 16px; }
+  .sparkle:nth-child(43) { left: 22%; animation-duration: 2.8s; animation-delay: 0.8s; font-size: 14px; }
+  .sparkle:nth-child(44) { left: 38%; animation-duration: 3.5s; animation-delay: 1.6s; font-size: 18px; }
+  .sparkle:nth-child(45) { left: 52%; animation-duration: 3.0s; animation-delay: 0.4s; font-size: 15px; }
+  .sparkle:nth-child(46) { left: 65%; animation-duration: 3.3s; animation-delay: 1.2s; font-size: 13px; }
+  .sparkle:nth-child(47) { left: 78%; animation-duration: 2.9s; animation-delay: 0.2s; font-size: 17px; }
+  .sparkle:nth-child(48) { left: 92%; animation-duration: 3.1s; animation-delay: 1.8s; font-size: 14px; }
+
+  @keyframes floatUp {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50%      { transform: translateY(-30px) scale(1.2); opacity: 1; }
+  }
+
+  /* ========== Click-to-edit hint ========== */
+  .edit-hint {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 0.5px;
+  }
+  .edit-hint span {
+    display: inline-block;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.2; }
+  }
+
+  /* ========== Music Button ========== */
+  .music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .music-btn:active {
+    transform: scale(0.9);
+  }
+  .music-btn.playing {
+    animation: spin 3s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Floating Petals (CSS only) ===== -->
+<div class="petal"></div><div class="petal"></div><div class="petal"></div>
+<div class="petal"></div><div class="petal"></div><div class="petal"></div>
+<div class="petal"></div><div class="petal"></div><div class="petal"></div>
+<div class="petal"></div><div class="petal"></div><div class="petal"></div>
+<div class="petal"></div><div class="petal"></div><div class="petal"></div>
+
+<!-- ===== Bottom Sparkles ===== -->
+<div class="sparkle">✨</div><div class="sparkle">✨</div>
+<div class="sparkle">✨</div><div class="sparkle">✨</div>
+<div class="sparkle">✨</div><div class="sparkle">✨</div>
+<div class="sparkle">✨</div>
+
+<!-- ===== Music Button ===== -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</button>
+
+<!-- ===== Main Container ===== -->
+<div class="container">
+
+  <!-- ===== Card ===== -->
+  <div class="card">
+
+    <!-- Heart Icon -->
+    <div class="icon-area">
+      <span class="heart-icon">❤️</span>
+    </div>
+
+    <!-- SVG Flower (Carnation) -->
+    <div class="flower-svg-wrap">
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stem -->
+        <path d="M60 120 L60 55" stroke="#4CAF50" stroke-width="4" stroke-linecap="round"/>
+        <!-- Leaves -->
+        <path d="M60 80 Q40 72 38 60 Q36 48 60 55" fill="#81C784" opacity="0.8"/>
+        <path d="M60 90 Q80 82 82 70 Q84 58 60 65" fill="#66BB6A" opacity="0.8"/>
+        <!-- Petals -->
+        <ellipse cx="60" cy="22" rx="18" ry="22" fill="#f06292" transform="rotate(0, 60, 40)"/>
+        <ellipse cx="60" cy="22" rx="18" ry="22" fill="#ec407a" transform="rotate(72, 60, 40)"/>
+        <ellipse cx="60" cy="22" rx="18" ry="22" fill="#f06292" transform="rotate(144, 60, 40)"/>
+        <ellipse cx="60" cy="22" rx="18" ry="22" fill="#ec407a" transform="rotate(216, 60, 40)"/>
+        <ellipse cx="60" cy="22" rx="18" ry="22" fill="#f06292" transform="rotate(288, 60, 40)"/>
+        <!-- Center -->
+        <circle cx="60" cy="40" r="8" fill="#fce4ec"/>
+        <circle cx="60" cy="40" r="5" fill="#f8bbd0"/>
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <div class="title">
+      <h1>母亲节快乐</h1>
+      <span class="sub">Happy Mother's Day</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Message -->
+    <div class="message">
+      <p>
+        有一种爱，平凡而伟大<br>
+        有一份情，无私而深沉<br>
+        感谢您用<span class="highlight">❤️</span>陪伴我成长<br>
+        您是我心中最美的风景
+      </p>
+    </div>
+
+    <!-- Customizable Greeting Box (click the name to edit) -->
+    <div class="greeting-box">
+      <div class="label">💕 送给</div>
+      <div class="greeting-text">
+        <span contenteditable="true" class="editable-name" id="editableName">妈妈</span>：<br>
+        您辛苦了，我爱您！
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <p id="senderName">—— 您的孩子：王纪超</p>
+      <div class="date" id="currentDate"></div>
+    </div>
+
+  </div> <!-- /card -->
+
+  <!-- Edit hint -->
+  <div class="edit-hint">
+    <span>💡 点击「妈妈」可修改称呼</span>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-note">
+    <p>🌷 祝天下所有妈妈，母亲节快乐 🌷</p>
+  </div>
+
+</div> <!-- /container -->
+
+<!-- ===== Audio (Base64 encoded silent beep, ~1KB) ===== -->
+<audio id="bgm" loop preload="none">
+  <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=" type="audio/wav">
+</audio>
+
+<script>
+(function() {
+  // ===== Set current date =====
+  const now = new Date();
+  const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日';
+  document.getElementById('currentDate').textContent = dateStr;
+
+  // ===== Click-to-edit name hint =====
+  const nameEl = document.getElementById('editableName');
+  // Stop propagation so clicking doesn't trigger anything else
+  nameEl.addEventListener('click', function(e) { e.stopPropagation(); });
+
+  // ===== Music toggle (play/pause background audio) =====
+  const audio = document.getElementById('bgm');
+  const musicBtn = document.getElementById('musicBtn');
+  let isPlaying = false;
+
+  window.toggleMusic = function() {
+    if (isPlaying) {
+      audio.pause();
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    } else {
+      audio.play().then(() => {
+        musicBtn.classList.add('playing');
+        musicBtn.textContent = '🎶';
+      }).catch(function(e) {
+        // Auto-play blocked on first tap — iOS/WeChat requires user gesture
+        console.log('Audio play blocked until user interaction');
+      });
+    }
+    isPlaying = !isPlaying;
+  };
+
+  // ===== If user taps anywhere, try to enable audio context (WeChat friendly) =====
+  document.addEventListener('touchstart', function() {
+    if (audio.context) return;
+    // Create AudioContext on first touch for WeChat
+    try {
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      audio.context = true;
+    } catch(e) {}
+  }, { once: true });
+
+  // ===== Optional: If WeChat browser, auto-enable audio after user interaction =====
+  var isWechat = navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
+  if (isWechat) {
+    document.addEventListener('WeixinJSBridgeReady', function() {
+      audio.load();
+    }, { once: true });
+  }
+})();
+</script>
+</body>
+</html>
